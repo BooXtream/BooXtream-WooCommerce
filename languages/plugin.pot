@@ -1,0 +1,378 @@
+# Copyright (C) 2015 BooXtream Social DRM for WooCommerce
+# This file is distributed under the same license as the BooXtream Social DRM for WooCommerce package.
+msgid ""
+msgstr ""
+"Project-Id-Version: BooXtream Social DRM for WooCommerce 0.9.6\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/plugin\n"
+"POT-Creation-Date: 2015-08-28 09:53:10+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: icontact-woocommerce-booxtream.php:51 icontact-woocommerce-booxtream.php:70
+msgid "BooXtream error"
+msgstr ""
+
+#: icontact-woocommerce-booxtream.php:56
+msgid "BooXtream error <span class=\"count\">(%s)</span>"
+msgid_plural "BooXtream error <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: icontact-woocommerce-booxtream.php:96
+msgid "Your version of PHP does not support SimpleXML"
+msgstr ""
+
+#: icontact-woocommerce-booxtream.php:99
+msgid "download_processing"
+msgstr ""
+
+#: icontact-woocommerce-booxtream.php:100
+#: icontact-woocommerce-booxtream.php:243
+msgid "Your download is not ready yet"
+msgstr ""
+
+#: icontact-woocommerce-booxtream.php:101
+#: icontact-woocommerce-booxtream.php:244
+msgid "We are currently processing your download, please try again in a few seconds"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:39
+msgid "BooXtream Settings"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:40
+msgid "Settings for BooXtream"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:47
+msgid "English"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:48
+msgid "Arabic"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:49
+msgid "Arabic (Jordan)"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:50
+msgid "Czech"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:51
+msgid "Dutch"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:52
+msgid "French"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:53
+msgid "German"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:54
+msgid "Hebrew"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:55
+msgid "Italian"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:56
+msgid "Norwegian"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:57
+msgid "Portuguese"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:58
+msgid "Russian"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:59
+msgid "Slovak"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:60
+msgid "Spanish"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:61
+msgid "Swedish"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:126
+msgid "Please enter your BooXtream contract credentials to continue"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:133
+msgid "Contract name"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:135
+msgid "Enter your BooXtream contract name"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:143
+msgid "Password"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:145
+msgid "Enter your BooXtream password"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:161
+msgid "Please choose an account to continue"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:167
+msgid "Account name"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:170
+msgid "Account"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:178
+msgid "General settings"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:179
+msgid "Settings that control how BooXtream is integrated."
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:186
+msgid "Moment of transaction"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:188
+msgid "This controls when your shop contacts BooXtream. Usually this would be right after payment has been succesfully processed or on order completion."
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:192
+msgid "Processing"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:193
+msgid "Completed"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:199
+msgid "Reference ID prefix"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:201
+msgid "Specify a prefix to the Reference ID"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:211
+msgid "Default settings"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:212
+msgid "These values can be overwritten when creating a BooXtreamable product."
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:219
+#: includes/class-wc-booxtream-product.php:145
+msgid "Ex libris"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:222
+#: includes/class-wc-booxtream-integration.php:231
+#: includes/class-wc-booxtream-integration.php:244
+#: includes/class-wc-booxtream-integration.php:252
+#: includes/class-wc-booxtream-integration.php:264
+msgid "This value can be overwritten when creating a BooXtreamable product; otherwise, this value will be used"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:229
+#: includes/class-wc-booxtream-product.php:304
+msgid "Ex libris font"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:241
+#: includes/class-wc-booxtream-product.php:226
+msgid "Language"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:250
+#: includes/class-wc-booxtream-product.php:239
+msgid "Download limit"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:262
+#: includes/class-wc-booxtream-product.php:257
+msgid "Days until download expires"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:382
+#: includes/class-wc-booxtream-product.php:240
+#: includes/class-wc-booxtream-product.php:258
+msgid "(default)"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:414
+msgid "No ex libris"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:426
+#: includes/class-wc-booxtream-integration.php:430
+msgid "Could not retrieve list of ex libris files"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:463
+msgid "Select an e-book"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:477
+#: includes/class-wc-booxtream-integration.php:481
+msgid "Could not retrieve list of stored files"
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:522
+msgid "Warning, your version of PHP does not support Curl. We highly recommend this when using our BooXtream plugin."
+msgstr ""
+
+#: includes/class-wc-booxtream-integration.php:609
+msgid "Please choose an account"
+msgstr ""
+
+#: includes/class-wc-booxtream-order.php:158
+msgid "Download"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:57
+msgid "Booxtreamable"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:96
+msgid "E-book"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:98
+msgid "Select e-book"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:110
+#: includes/class-wc-booxtream-product.php:159
+msgid "Refresh list"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:147
+msgid "Select a file to use as an ex libris"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:228
+msgid "Select language"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:242
+msgid "Enter download limit"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:260
+msgid "The number of days until the download expires"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:275
+msgid "Generate downloadlink for epub"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:277
+msgid "Check if you want to generate a downloadlink to a watermarked epub file"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:288
+msgid "Generate downloadlink for mobi"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:290
+msgid "Check if you want to generate a downloadlink to a watermarked mobi file"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:306
+msgid "Select font"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:321
+msgid "Chapter footer"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:323
+msgid "Check if you would like to include a chapter footer"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:333
+msgid "Disclaimer"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:335
+msgid "Check if you would like to include a disclaimer"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:345
+msgid "Include date in visible watermarks"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:347
+msgid "Check if you would like to include the date in the visible watermarks"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:524
+msgid "E-book has not been set"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:527
+msgid "The e-book %s does not exist"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:532
+msgid "Output of epub and/or mobi is not set"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:537
+msgid "Download limit should be greater than 0"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:542
+msgid "Number of days until download expires should be greater than 0"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:546
+msgid "Ex libris %s does not exist"
+msgstr ""
+
+#: includes/class-wc-booxtream-product.php:598
+msgid "Unsupported language %s"
+msgstr ""
+
+#: includes/class-wc-booxtream-request.php:54
+msgid "An error occurred while watermarking. Please check your BooXtream Dashboard: "
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "BooXtream Social DRM for WooCommerce"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.booxtream.com/woocommerce"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Enables the use of BooXtream Social DRM with WooCommerce"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Icontact B.V."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.icontact.nl/"
+msgstr ""

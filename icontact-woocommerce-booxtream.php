@@ -4,7 +4,7 @@
 Plugin Name: BooXtream Social DRM for WooCommerce
 Plugin URI: http://www.booxtream.com/woocommerce
 Description: Enables the use of BooXtream Social DRM with WooCommerce
-Version: 0.9.7
+Version: 0.9.8
 Author: Icontact B.V.
 Author URI: http://www.icontact.nl/
 License: GPLv2 or later
@@ -284,20 +284,20 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		}
 
 		public function callback_handler() {
-			// say hi back as soon as possible!
-			ignore_user_abort( true );
-			set_time_limit( 0 );
-			header( "HTTP/1.1 200 OK" );
-			header( "Connection: close", true );
-			header( "Content-Encoding: none\r\n" );
-			header( "Content-Length: 1", true );
-			echo 1;
-			ob_end_flush();
-			flush();
-
-			session_write_close();
-
 			if ( ! empty( $_POST['request'] ) ) {
+				// say hi back as soon as possible!
+				ignore_user_abort( true );
+				set_time_limit( 0 );
+				header( "HTTP/1.1 200 OK" );
+				header( "Connection: close", true );
+				header( "Content-Encoding: none\r\n" );
+				header( "Content-Length: 1", true );
+				echo '1';
+				ob_end_flush();
+				flush();
+
+				session_write_close();
+
 				$vars = $_POST['request'];
 
 				$vars = stripslashes( $vars );
@@ -315,6 +315,19 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 					$request = new WC_BooXtream_Request();
 					$request->handle_request( $url, $args, $parameters, $order_id, $item_id );
 				}
+			} else {
+				// say hi back as soon as possible!
+				ignore_user_abort( true );
+				set_time_limit( 0 );
+				header( "HTTP/1.1 400 Bad Request" );
+				header( "Connection: close", true );
+				header( "Content-Encoding: none\r\n" );
+				header( "Content-Length: 1", true );
+				echo '0';
+				ob_end_flush();
+				flush();
+
+				session_write_close();
 			}
 		}
 

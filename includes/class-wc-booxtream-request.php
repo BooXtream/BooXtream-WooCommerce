@@ -12,7 +12,6 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 		 * @param $item_id
 		 */
 		function add_downloadlinks( $links, $item_id ) {
-
 			if ( is_array( $links ) ) {
 				// add generated downloadlinks to item
 				wc_update_order_item_meta( $item_id, '_bx_downloadlinks', $links );
@@ -34,27 +33,22 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 			// evaluate body
 			if ( is_array( $response ) && $response['response'] ['code'] === 200 ) {
 				return $this->parse_downloadlinks( $body );
-			} elseif ( $links instanceof WP_Error ) {
-				return $links;
 			} else {
-				return new WP_Error( 'booxtreamfail', 'Failed to BooXtream this product', $response );
+				throw new Exception( __( 'An error occurred while watermarking. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
 			}
 
 		}
 
 		public function handle_request( $url, $args, $parameters, $order_id, $item_id ) {
 			// multipart request
-			$args  = $this->create_multipart_request( $parameters, $args );
-			$links = $this->do_request( $url, $args );
-
-			if ( $links instanceof WP_Error ) {
-				// force status to something else
+			try {
+				$args  = $this->create_multipart_request( $parameters, $args );
+				$links = $this->do_request( $url, $args );
+				$this->add_downloadlinks( $links, $item_id );
+			} catch ( Exception $e ) {
 				$order = new WC_Order( $order_id );
-				//@todo: handle this error better
-				$order->update_status( 'wc-booxtream-error', __( 'An error occurred while watermarking. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
+				$order->update_status( 'wc-booxtream-error', $e->getMessage() );
 			}
-
-			$this->add_downloadlinks( $links, $item_id );
 		}
 
 		/**
@@ -65,31 +59,25 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 		 * @todo: less primitive exceptions
 		 */
 		function parse_downloadlinks( $body ) {
+			if ( ! $body ) {
+				throw new Exception( __( 'An error occurred while retrieving downloadlinks. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
+			}
 
-			try {
-				if ( ! $body ) {
-					throw new Exception( __( 'An error occurred while watermarking. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
-				}
+			$links = array();
+			$xml   = new SimpleXMLElement( $body );
 
-				$links = array();
-				$xml   = new SimpleXMLElement( $body );
-
-				// get download link and file type from BooXtream response
-				if ( isset( $xml->Response ) && isset( $xml->Response->DownloadLink ) ) {
-					foreach ( $xml->Response->DownloadLink as $downloadlink ) {
-						if ( strlen( ( string ) $downloadlink ) > 0 && isset( $downloadlink['type'] ) ) {
-							$link           = ( string ) $downloadlink;
-							$type           = ( string ) $downloadlink['type'];
-							$links[ $type ] = $link;
-						}
+			// get download link and file type from BooXtream response
+			if ( isset( $xml->Response ) && isset( $xml->Response->DownloadLink ) ) {
+				foreach ( $xml->Response->DownloadLink as $downloadlink ) {
+					if ( strlen( ( string ) $downloadlink ) > 0 && isset( $downloadlink['type'] ) ) {
+						$link           = ( string ) $downloadlink;
+						$type           = ( string ) $downloadlink['type'];
+						$links[ $type ] = $link;
 					}
 				}
-
-				return $links;
-
-			} catch ( Exception $e ) {
-				throw $e;
 			}
+
+			return $links;
 		}
 
 		/**

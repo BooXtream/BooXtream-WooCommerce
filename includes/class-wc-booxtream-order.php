@@ -68,7 +68,7 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		public function handle_status_change( $order_id, $old_status, $new_status ) {
 			$statuses = wc_get_order_statuses();
 			// if we don't get a wc-prefixed status.
-			$status   = 'wc-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
+			$status = 'wc-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
 			if ( isset( $statuses[ 'wc-' . $status ] ) && 'wc-' . $status === $this->settings->onstatus ) {
 				return $this->process_items( $order_id );
 			}
@@ -80,18 +80,15 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		 * @param $order_id
 		 */
 		public function process_items( $order_id ) {
-			// get order object
 			$order = new WC_Order( $order_id );
 			$items = $order->get_items( array( 'line_item' ) );
 
 			// check general BooXtream conditions
-			// @todo: handle errorcase?
 			$accountkey = $this->settings->get_accountkey();
 			if ( ! is_null( $accountkey ) ) {
 				foreach ( $items as $item_id => $item ) {
 					$downloadlinks = wc_get_order_item_meta( $item_id, '_bx_downloadlinks', true );
 					if ( ! is_array( $downloadlinks ) && 'yes' === get_post_meta( $item['product_id'], '_bx_booxtreamable', true ) ) {
-						// @todo: be able to force processing of item(s)
 						$this->request_downloadlinks( $item['product_id'], $order_id, $item_id ); // use this for actual data
 					}
 				}
@@ -238,20 +235,22 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			$args['timeout'] = 600;
 
 			// send non-blocking request to API
-			$request = array(
+			$request  = array(
 				'url'        => $url,
 				'args'       => $args,
 				'parameters' => $parameters,
 				'order_id'   => $order_id,
 				'item_id'    => $item_id
 			);
-
-			$args = array(
-				'blocking' => false,
-				'timeout'  => 1, // setting blocking to false and timeout to 1 should just fire the request (hopefully)
-				'body'     => 'request=' . json_encode( $request )
+			$args     = array(
+				'method'      => 'POST',
+				'redirection' => 3,
+				'user-agent'  => 'booxtreamrequest',
+				'httpversion' => '1.1',
+				'blocking'    => false,
+				'timeout'     => 1, // setting blocking to false and timeout to 1 should just fire the request
+				'body'        => array( 'request' => json_encode( $request ) )
 			);
-
 			$response = wp_remote_post( site_url( $wp_rewrite->root . 'wc-api/booxtream_callback' ), $args );
 			if ( is_wp_error( $response ) ) {
 				/*

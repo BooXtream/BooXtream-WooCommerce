@@ -114,7 +114,7 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
              */
             $result = self::test_api();
             if ( ! $result || $result['code'] !== 200 ) {
-                $errors[] = __( 'Unable to use internal Woocommerce API. Please check your rewrite configuration.', 'woocommerce_booxtream' );
+                $errors[] = __( 'Unable to use internal Woocommerce API. Please check your rewrite/permalink configuration. This plugin will not work without rewriting enabled.', 'woocommerce_booxtream' );
             }
 
             /*
@@ -178,7 +178,11 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
             if ( is_wp_error( $post ) ) {
                 return false;
             }
-            $headers  = $post['headers']->getAll();
+            $headers  = $post['headers'];
+            if(!is_array($headers)) {
+                $headers  = $post['headers']->getAll();
+            }
+
             $response = $post['response'];
             $response = array_merge( $response, $headers );
 
@@ -200,7 +204,11 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
             if ( is_wp_error( $post ) ) {
                 return false;
             }
-            $headers  = $post['headers']->getAll();
+            $headers  = $post['headers'];
+            if(!is_array($headers)) {
+                $headers  = $post['headers']->getAll();
+            }
+
             $response = $post['response'];
             $response = array_merge( $response, $headers );
 

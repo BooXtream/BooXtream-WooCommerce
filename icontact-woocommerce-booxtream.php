@@ -110,12 +110,22 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
             }
 
             /*
-             * Test connection to Woocommerce API
+            * Test connection to Woocommerce API
+            */
+            $result = self::test_permalinks();
+            if ( ! $result ) {
+                $errors[] = __( 'Permalinks are not enabled.', 'woocommerce_booxtream' );
+            }
+
+            /*
+             * Check Woocommerce API
              */
             $result = self::test_api();
-            if ( ! $result || $result['code'] !== 200 ) {
-                $errors[] = __( 'Unable to use internal Woocommerce API. Please check your rewrite/permalink configuration. This plugin will not work without rewriting enabled.', 'woocommerce_booxtream' );
+            if ( ! $result ) {
+                $errors[] = __( 'Please enable Woocommerce API.', 'woocommerce_booxtream' );
             }
+
+
 
             /*
              * @todo: test if we can generate downloadlinks
@@ -189,30 +199,16 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
             return $response;
         }
 
+        public static function test_permalinks() {
+            if(0 === strlen(get_option('permalink_structure'))) return true;
+
+            return false;
+        }
+
         public static function test_api() {
-            global $wp_rewrite;
+            if('yes' === get_option( 'woocommerce_api_enabled' )) return true;
 
-            $url  = site_url( $wp_rewrite->root . 'wp-json/wc/v1' );
-            $args = array(
-                'method'      => 'GET',
-                'timeout'     => 60,
-                'redirection' => 3,
-                'user-agent'  => 'pluginconnectioncheck',
-                'httpversion' => '1.1',
-            );
-            $post = wp_remote_post( $url, $args );
-            if ( is_wp_error( $post ) ) {
-                return false;
-            }
-            $headers  = $post['headers'];
-            if(!is_array($headers)) {
-                $headers  = $post['headers']->getAll();
-            }
-
-            $response = $post['response'];
-            $response = array_merge( $response, $headers );
-
-            return $response;
+            return false;
         }
 
         /**

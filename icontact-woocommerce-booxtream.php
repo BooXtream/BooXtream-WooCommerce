@@ -200,9 +200,9 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
         }
 
         public static function test_permalinks() {
-            if(0 === strlen(get_option('permalink_structure'))) return true;
+            if(0 === strlen(get_option('permalink_structure'))) return false;
 
-            return false;
+            return true;
         }
 
         public static function test_api() {

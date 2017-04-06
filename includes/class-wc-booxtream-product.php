@@ -394,9 +394,9 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			if ( 'product' === $post->post_type ) {
 
 				if ( isset( $_POST['_bx_booxtreamable'] ) && 'on' === $_POST['_bx_booxtreamable'] ) {
-					update_post_meta( $product_id, '_bx_booxtreamable', 'yes' );
+					update_post_meta( $product_id, '_booxtreamable', 'yes' );
 				} else {
-					update_post_meta( $product_id, '_bx_booxtreamable', 'no' );
+					update_post_meta( $product_id, '_booxtreamable', 'no' );
 				}
 
 				if ( isset ( $_POST['_bx_filename'] ) ) {
@@ -574,7 +574,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 		private function is_booxtreamable() {
 			global $thepostid;
 
-			$booxtreamable = get_post_meta( $thepostid, '_bx_booxtreamable', true );
+			$booxtreamable = get_post_meta( $thepostid, '_booxtreamable', true );
 
 			return 'yes' === $booxtreamable ? 'yes' : 'no';
 		}

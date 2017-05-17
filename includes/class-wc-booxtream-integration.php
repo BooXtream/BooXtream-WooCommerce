@@ -387,12 +387,12 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
         /**
          * return a list of available exlibrisfiles
          */
-        public function get_exlibrisfiles() {
-            if(is_null($this->exlibrisfiles)) {
+        public function get_exlibrisfiles($force=false) {
+            if(is_null($this->exlibrisfiles) && !$force) {
                 $this->exlibrisfiles = get_option( 'woocommerce_booxtream_exlibrisfiles' );
             }
 
-            if(is_null($this->exlibrisfiles)) {
+            if(is_null($this->exlibrisfiles) || $force) {
                 // check of er een connectie is
                 if ( !$this->connected ) {
                     // @todo: handle error, admin notice?
@@ -441,12 +441,12 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
         /**
          * return a list of available storedfiles
          */
-        public function get_storedfiles() {
-            if(is_null($this->storedfiles)) {
+        public function get_storedfiles($force=false) {
+            if(is_null($this->storedfiles) && !$force) {
                 $this->storedfiles = get_option( 'woocommerce_booxtream_storedfiles' );
             }
 
-            if(is_null($this->storedfiles)) {
+            if(is_null($this->storedfiles) || $force) {
                 // check of er een connectie is
                 if ( !$this->connected ) {
                     return false;

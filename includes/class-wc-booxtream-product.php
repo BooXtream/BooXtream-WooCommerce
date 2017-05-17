@@ -70,6 +70,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			global $thepostid;
 			$this->settings->storedfiles = null;
 
+			$this->settings->get_storedfiles(true);
+
 			// we have to set this global to ensure woocommerce_wp_select() works
 			$thepostid = intval( $_POST['booxtream-post-id'] );
 
@@ -118,6 +120,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 		public function refresh_exlibrisfiles() {
 			global $thepostid;
 			$this->settings->exlibrisfiles = null;
+
+			$this->settings->get_exlibrisfiles(true);
 
 			// we have to set this global to ensure woocommerce_wp_select() works
 			$thepostid = intval( $_POST['booxtream-post-id'] );

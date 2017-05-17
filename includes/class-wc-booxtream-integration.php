@@ -68,7 +68,7 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
             $this->init_form_fields();
 
             // Enable saving and updating of given values for options.
-            add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
+            add_action( 'woocommerce_update_options_integration_' . $this->id, array( &$this, 'process_admin_options' ) );
 
         }
 
@@ -87,18 +87,15 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
             $this->exlibrisfile          = $this->get_option( 'exlibrisfile' );
 
             $this->language              = $this->get_option( 'language' );
-
-            $this->exlibrisfiles         = $this->get_option( 'exlibrisfiles' );
-            if($this->exlibrisfiles == '') {$this->exlibrisfiles = null;}
-
             $this->exlibrisfont          = $this->get_option( 'exlibrisfont' );
 
-            $this->storedfiles           = $this->get_option( 'storedfiles' );
-            if($this->storedfiles == '') {$this->storedfiles = null;}
-
-            $this->onstatus              = 'wc-processing'; //$this->get_option( 'onstatus' );
+            $this->onstatus              = $this->get_option( 'onstatus' );
 
             $this->accountkey            = $this->get_accountkey();
+
+            // Lazyloaded
+            $this->exlibrisfiles         = null;
+            $this->storedfiles           = null;
         }
 
         /**
@@ -392,6 +389,10 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
          */
         public function get_exlibrisfiles() {
             if(is_null($this->exlibrisfiles)) {
+                $this->exlibrisfiles = get_option( 'woocommerce_booxtream_exlibrisfiles' );
+            }
+
+            if(is_null($this->exlibrisfiles)) {
                 // check of er een connectie is
                 if ( !$this->connected ) {
                     // @todo: handle error, admin notice?
@@ -441,6 +442,10 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
          * return a list of available storedfiles
          */
         public function get_storedfiles() {
+            if(is_null($this->storedfiles)) {
+                $this->storedfiles = get_option( 'woocommerce_booxtream_storedfiles' );
+            }
+
             if(is_null($this->storedfiles)) {
                 // check of er een connectie is
                 if ( !$this->connected ) {

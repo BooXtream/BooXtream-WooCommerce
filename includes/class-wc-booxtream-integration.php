@@ -179,12 +179,10 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
                     );
 
                     // Add exlibris, language, expirydays, downloadlimit as global product settings
-                    /*
-                     * @todo: disabled for now
                     $this->form_fields['onstatus'] = array(
                         'title' => __('Moment of transaction', 'woocommerce_booxtream'),
                         'type' => 'select',
-                        'description' => __('This controls when your shop contacts BooXtream. Usually this would be right after payment has been succesfully processed or on order completion.', 'woocommerce_booxtream'),
+                        'description' => __('This controls when your shop contacts BooXtream. Usually this would be right after payment (status changes to "processing") or on order completion (status changes to "completed"). Other plugins may interfere with this.', 'woocommerce_booxtream'),
                         'desc_tip' => false,
                         'default' => 'wc-processing',
                         'options' => array(
@@ -192,7 +190,6 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
                             'wc-completed'  => __( 'Completed', 'woocommerce_booxtream' ),
                         )
                     );
-                    */
 
                     $this->form_fields['referenceprefix'] = array(
                         'title'             => __( 'Reference ID prefix', 'woocommerce_booxtream' ),

@@ -88,7 +88,7 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
             if ( ! is_null( $accountkey ) ) {
                 foreach ( $items as $item_id => $item ) {
                     $downloadlinks = wc_get_order_item_meta( $item_id, '_bx_downloadlinks', true );
-                    if ( ! is_array( $downloadlinks ) && 'yes' === get_post_meta( $item['product_id'], '_bx_booxtreamable', true ) ) {
+                    if ( ! is_array( $downloadlinks ) && 'yes' === get_post_meta( $item['product_id'], '_booxtreamable', true ) ) {
                         $this->request_downloadlinks( $item['product_id'], $order_id, $item_id ); // use this for actual data
                     }
                 }

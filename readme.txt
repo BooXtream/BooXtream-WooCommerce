@@ -3,14 +3,16 @@
 Contributors: booxtream
 Tags: booxtream, ebooks, watermarking, watermark, epub, mobi, kindle, ebook, woocommerce, socialdrm, social drm, drm
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 0.9.9.2
+Tested up to: 4.7.5
+Stable tag: 0.9.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Extends the Simple product features in order to sell watermarked 'Social DRM' eBooks with WooCommerce. A BooXtream contract is required.
 
 == Description ==
+
+This plugin requires WooCommerce. This plugin has been tested with version 2.3.0 up to 3.0.7
 
 BooXtream is a cloudbased alternative to Adobe DRM to protect ePub eBooks. It is used to create watermarked and personalised eBooks, a protection method also known as Social DRM. BooXtream provides download links to uniquely personalised eBooks and fulfils the download when an end user clicks on a link. 
 
@@ -36,8 +38,8 @@ BooXtream uses 3 data fields with information about the end users to watermark a
 
 Every eBook processed by BooXtream for WooCommerce contains invisible watermarks. Optionally, the eBooks also contain a combination of visible extra's based on 'Customer Name' and 'Customer Email Address':
 
-*. a personalised ex libris image on the bookplate (the page after the cover page)
-*. a footer text at the end of every chapter
+* a personalised ex libris image on the bookplate (the page after the cover page)
+* a footer text at the end of every chapter
 * a personalised page (disclaimer page) at the end of the eBook.
 
 More info: www.booxtream.com

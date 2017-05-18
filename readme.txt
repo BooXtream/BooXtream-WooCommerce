@@ -62,6 +62,8 @@ The installation of BooXtream for WooCommerce s required; this plugin has been t
 
 	- when contract credentials are correct, you can select an account
 
+	- configure when plugin contacts BooXtream: this can be right after payment of on order completion. Some other plugins that change the default way WooCommerce handles status changes may require you to change this.
+
 	- configure default settings (these values can be overwritten on product level when creating a BooXtreamable Simple product)
 
 		- Ex Libris: drop down selection with all available Ex Libris image files in your BooXTream Dashboard account; use the BooXtream Dashboard 'Stored Files' section to upload and manage your Ex Libris image files
@@ -72,7 +74,7 @@ The installation of BooXtream for WooCommerce s required; this plugin has been t
 
 		- Days until download expires: Enter a value between 1 and 999 (days). This value represents the lifetime of a download link in days before it expires
 
-When you click Save changes, the installation and configuration process is finished and BooXtream for WooCommerce is ready for use! 
+When you click Save changes, the installation and configuration process is finished and BooXtream for WooCommerce is ready for use!
 
 To use BooXtream for WooCommerce, select the Booxtreamable checkbox in the Product Data section (Simple product).
 
@@ -80,14 +82,24 @@ Extensive plug-in documentation can be found on the Support page of the BooXtrea
 
 == Changelog ==
 
+= Known issue: Your download is not ready yet =
+The download link can redirect to the page 'Your download is not ready yet'. It is possible that the watermarking process has not finished yet when a customer clicks on the download link. However, if this takes to long, chances are that the ebook you are trying to watermark is invalid.
+If this happens you should check the Transaction page on the BooXtream Dashboard for any watermarking errors and cancel/refund the WooCommerce order manually.
+The actual error message shown in the BooXtream Dashboard is not shown to the end user in WooCommerce or in the admin. We will improve this in a future release of the BooXtream plug-in.
+
+= Why can an ebook fail to watermark? =
+An ebook can fail to watermark when the ebook file is invalid. We therefore strongly recommend to test your ebooks by validating and watermarking every ebook before adding them to your web shop.
+To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
+To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
+
 = 0.9.9.6 =
 * Some bugfixes
 * Performance improvements
 * Now supports Wordpress 4.7.5
 * Supports WooCommerce 3.0, tested up to 3.0.7
+* Added option to change when shop contacts BooXtream (moment of transaction)
+* WooCommerce 3.0 does not allow html in meta tags. Downloadlinks are now added as string (which will make them automatically linkable). The generated urls have been shortened.
 
 = 0.9.9.5 =
 * Fixed a bug that cropped up when WooCommerce updated to > 3.0
-
-
 

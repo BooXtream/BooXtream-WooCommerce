@@ -147,13 +147,13 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 				$links = array();
 				if ( $epub ) {
 					$download_id = $this->createShortCode();
-					$link        = 'bx-download/' . $item_id . $download_id;
+					$link        = 'bx/' . $item_id . $download_id;
 					wc_update_order_item_meta( $item_id, '_bx_epub_link', $download_id );
 					$links['epub'] = site_url( $link );
 				}
 				if ( $mobi ) {
 					$download_id = $this->createShortCode();
-					$link        = 'bx-download/' . $item_id . $download_id;
+					$link        = 'bx/' . $item_id . $download_id;
 					wc_update_order_item_meta( $item_id, '_bx_mobi_link', $download_id );
 					$links['mobi'] = site_url( $link );
 				}

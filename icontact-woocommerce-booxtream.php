@@ -16,6 +16,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! class_exists( 'WC_BooXtream' ) ) :
 
+	if (!defined('BOOXTREAM_PLUGIN_VERSION'))
+		define('BOOXTREAM_PLUGIN_VERSION', '0.9.9.6');
+
 	class WC_BooXtream {
 		/**
 		 * Instance of this class.
@@ -175,7 +178,7 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 				deactivate_plugins( plugin_basename( __FILE__ ) );
 			}
 			// this will trigger the much coveted fatal error instead of 'unexpected output'
-			exit;
+			if(is_admin()) exit;
 		}
 
 		public static function test_connection() {
@@ -410,6 +413,13 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 			);
 		}
 
+		public static function check_version() {
+			if (is_admin() && BOOXTREAM_PLUGIN_VERSION !== get_option('booxtream_plugin_version')) {
+				self::activate_plugin();
+				update_option('booxtream_plugin_version', BOOXTREAM_PLUGIN_VERSION);
+			}
+		}
+
 	}
 
 	// create page(s) on activation
@@ -420,6 +430,9 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 	// load class when plugins are loaded
 	add_action( 'plugins_loaded', array( 'WC_BooXtream', 'get_instance' ), 0 );
+
+	// load check version at the very end
+	add_action( 'wp_loaded', array( 'WC_BooXtream', 'check_version' ), 0 );
 
 	function act_trigger_error( $message, $errno ) {
 

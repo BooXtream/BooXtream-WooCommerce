@@ -78,5 +78,16 @@ To use BooXtream for WooCommerce, select the Booxtreamable checkbox in the Produ
 
 Extensive plug-in documentation can be found on the Support page of the BooXtream Dashboard.
 
+== Changelog ==
+
+= 0.9.9.6 =
+* Some bugfixes
+* Performance improvements
+* Now supports Wordpress 4.7.5
+* Supports WooCommerce 3.0, tested up to 3.0.7
+
+= 0.9.9.5 =
+* Fixed a bug that cropped up when WooCommerce updated to > 3.0
+
 
 

@@ -70,7 +70,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			global $thepostid;
 			$this->settings->storedfiles = null;
 
-			$this->settings->get_storedfiles(true);
+			$this->settings->get_storedfiles( true );
 
 			// we have to set this global to ensure woocommerce_wp_select() works
 			$thepostid = intval( $_POST['booxtream-post-id'] );
@@ -111,7 +111,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			// remove last </p>
 			$select = substr( $select, 0, - 4 );
 
-			return '<div id="booxtream-select-storedfiles">' . $select . ' <a href="#" class="booxtream-refresh-storedfiles" data-post-id="' . $thepostid . '">' . __( 'Refresh list', 'woocommerce_booxtream' ) . '</a></p></div>';
+			return '<div id="booxtream-select-storedfiles">' . $select . ' <a href="#" class="booxtream-refresh-storedfiles" data-post-id="' . $thepostid . '">' . __( 'Refresh list',
+					'woocommerce_booxtream' ) . '</a></p></div>';
 		}
 
 		/**
@@ -121,7 +122,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			global $thepostid;
 			$this->settings->exlibrisfiles = null;
 
-			$this->settings->get_exlibrisfiles(true);
+			$this->settings->get_exlibrisfiles( true );
 
 			// we have to set this global to ensure woocommerce_wp_select() works
 			$thepostid = intval( $_POST['booxtream-post-id'] );
@@ -165,7 +166,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			// remove last </p>
 			$select = substr( $select, 0, - 4 );
 
-			return '<div id="booxtream-select-exlibrisfiles">' . $select . ' <a href="#" class="booxtream-refresh-exlibrisfiles" data-post-id="' . $thepostid . '">' . __( 'Refresh list', 'woocommerce_booxtream' ) . '</a></p></div>';
+			return '<div id="booxtream-select-exlibrisfiles">' . $select . ' <a href="#" class="booxtream-refresh-exlibrisfiles" data-post-id="' . $thepostid . '">' . __( 'Refresh list',
+					'woocommerce_booxtream' ) . '</a></p></div>';
 		}
 
 		/**
@@ -278,7 +280,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'label'             => __( 'Days until download expires', 'woocommerce_booxtream' ),
 					'placeholder'       => $global_expirydays . ' ' . __( '(default)', 'woocommerce_booxtream' ),
 					'desc_tip'          => true,
-					'description'       => __( 'The number of days until the download expires', 'woocommerce_booxtream' ),
+					'description'       => __( 'The number of days until the download expires',
+						'woocommerce_booxtream' ),
 					'type'              => 'number',
 					'value'             => $bx_expirydays,
 					'custom_attributes' => array(
@@ -295,7 +298,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'id'          => '_bx_outputepub',
 					'label'       => __( 'Generate downloadlink for epub', 'woocommerce_booxtream' ),
 					'desc_tip'    => 'true',
-					'description' => __( 'Check if you want to generate a downloadlink to a watermarked epub file', 'woocommerce_booxtream' ),
+					'description' => __( 'Check if you want to generate a downloadlink to a watermarked epub file',
+						'woocommerce_booxtream' ),
 					'type'        => 'checkbox',
 					'value'       => $bx_outputepub,
 					'default'     => '1'
@@ -308,7 +312,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'id'          => '_bx_outputmobi',
 					'label'       => __( 'Generate downloadlink for mobi', 'woocommerce_booxtream' ),
 					'desc_tip'    => 'true',
-					'description' => __( 'Check if you want to generate a downloadlink to a watermarked mobi file', 'woocommerce_booxtream' ),
+					'description' => __( 'Check if you want to generate a downloadlink to a watermarked mobi file',
+						'woocommerce_booxtream' ),
 					'type'        => 'text',
 					'value'       => $bx_outputmobi,
 				)
@@ -341,7 +346,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'id'          => '_bx_chapterfooter',
 					'label'       => __( 'Chapter footer', 'woocommerce_booxtream' ),
 					'desc_tip'    => 'true',
-					'description' => __( 'Check if you would like to include a chapter footer', 'woocommerce_booxtream' ),
+					'description' => __( 'Check if you would like to include a chapter footer',
+						'woocommerce_booxtream' ),
 					'type'        => 'text',
 					'value'       => $bx_chapterfooter,
 				)
@@ -365,7 +371,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'id'          => '_bx_showdate',
 					'label'       => __( 'Include date in visible watermarks', 'woocommerce_booxtream' ),
 					'desc_tip'    => 'true',
-					'description' => __( 'Check if you would like to include the date in the visible watermarks', 'woocommerce_booxtream' ),
+					'description' => __( 'Check if you would like to include the date in the visible watermarks',
+						'woocommerce_booxtream' ),
 					'type'        => 'text',
 					'value'       => $bx_showdate,
 				)
@@ -423,7 +430,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 						} else {
 							update_post_meta( $product_id, '_bx_exlibrisfile_exists', 'no' );
 						}
-						update_post_meta( $product_id, '_bx_exlibrisfile', sanitize_file_name( $_POST['_bx_exlibrisfile'] ) );
+						update_post_meta( $product_id, '_bx_exlibrisfile',
+							sanitize_file_name( $_POST['_bx_exlibrisfile'] ) );
 					}
 				}
 
@@ -546,26 +554,33 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					WC_Admin_Meta_Boxes::add_error( __( 'E-book has not been set', 'woocommerce_booxtream' ) );
 				} elseif ( 'no' == $bx_filename_exists ) {
 					$error = true;
-					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The e-book %s does not exist', 'woocommerce_booxtream' ), '<code>' . basename( sanitize_file_name( $bx_filename ) ) . '</code>' ) );
+					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'The e-book %s does not exist',
+						'woocommerce_booxtream' ),
+						'<code>' . basename( sanitize_file_name( $bx_filename ) ) . '</code>' ) );
 				}
 
 				if ( 'no' == $bx_outputepub && 'no' == $bx_outputmobi ) {
 					$error = true;
-					WC_Admin_Meta_Boxes::add_error( __( 'Output of epub and/or mobi is not set', 'woocommerce_booxtream' ) );
+					WC_Admin_Meta_Boxes::add_error( __( 'Output of epub and/or mobi is not set',
+						'woocommerce_booxtream' ) );
 				}
 
 				if ( 0 == (int) $bx_downloadlimit ) {
 					$error = true;
-					WC_Admin_Meta_Boxes::add_error( __( 'Download limit should be greater than 0', 'woocommerce_booxtream' ) );
+					WC_Admin_Meta_Boxes::add_error( __( 'Download limit should be greater than 0',
+						'woocommerce_booxtream' ) );
 				}
 
 				if ( 0 == (int) $bx_expirydays ) {
 					$error = true;
-					WC_Admin_Meta_Boxes::add_error( __( 'Number of days until download expires should be greater than 0', 'woocommerce_booxtream' ) );
+					WC_Admin_Meta_Boxes::add_error( __( 'Number of days until download expires should be greater than 0',
+						'woocommerce_booxtream' ) );
 				}
 
 				if ( '' != $bx_exlibrisfile && 'no' == $bx_exlibrisfile_exists ) {
-					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Ex libris %s does not exist', 'woocommerce_booxtream' ), '<code>' . basename( sanitize_file_name( $bx_exlibrisfile ) ) . '</code>' ) );
+					WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Ex libris %s does not exist',
+						'woocommerce_booxtream' ),
+						'<code>' . basename( sanitize_file_name( $bx_exlibrisfile ) ) . '</code>' ) );
 				}
 			}
 
@@ -619,7 +634,8 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			if ( array_key_exists( $language, $this->settings->languages ) ) {
 				return $language;
 			} else {
-				WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Unsupported language %s', 'woocommerce_booxtream' ), '<code>' . $language . '</code>' ) );
+				WC_Admin_Meta_Boxes::add_error( sprintf( __( 'Unsupported language %s', 'woocommerce_booxtream' ),
+					'<code>' . $language . '</code>' ) );
 
 				return false;
 			}

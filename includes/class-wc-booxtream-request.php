@@ -34,7 +34,8 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 			if ( is_array( $response ) && $response['response'] ['code'] === 200 ) {
 				return $this->parse_downloadlinks( $body );
 			} else {
-				throw new Exception( __( 'An error occurred while watermarking. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
+				throw new Exception( __( 'An error occurred while watermarking. Please check your BooXtream Dashboard: ',
+					'woocommerce_booxtream' ) );
 			}
 
 		}
@@ -60,7 +61,8 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 		 */
 		function parse_downloadlinks( $body ) {
 			if ( ! $body ) {
-				throw new Exception( __( 'An error occurred while retrieving downloadlinks. Please check your BooXtream Dashboard: ', 'woocommerce_booxtream' ) );
+				throw new Exception( __( 'An error occurred while retrieving downloadlinks. Please check your BooXtream Dashboard: ',
+					'woocommerce_booxtream' ) );
 			}
 
 			$links = array();

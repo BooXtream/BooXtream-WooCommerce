@@ -62,18 +62,14 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		 * @param $order_id
 		 * @param $old_status
 		 * @param $new_status
-		 *
-		 * @return bool|void
 		 */
 		public function handle_status_change( $order_id, $old_status, $new_status ) {
 			$statuses = wc_get_order_statuses();
 			// if we don't get a wc-prefixed status.
 			$status = 'wc-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
 			if ( isset( $statuses[ 'wc-' . $status ] ) && 'wc-' . $status === $this->settings->onstatus ) {
-				return $this->process_items( $order_id );
+				$this->process_items( $order_id );
 			}
-
-			return false;
 		}
 
 		/**
@@ -88,16 +84,17 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			if ( ! is_null( $accountkey ) ) {
 				foreach ( $items as $item_id => $item ) {
 					$downloadlinks = wc_get_order_item_meta( $item_id, '_bx_downloadlinks', true );
-					if ( ! is_array( $downloadlinks ) && 'yes' === get_post_meta( $item['product_id'], '_booxtreamable',
-							true )
+					/* The double check is for backward compatibility */
+					if ( ! is_array( $downloadlinks ) && (
+							'yes' === get_post_meta( $item['product_id'], '_booxtreamable', true ) ||
+							'yes' === get_post_meta( $item['product_id'], '_bx_booxtreamable', true )
+						)
 					) {
 						$this->request_downloadlinks( $item['product_id'], $order_id,
 							$item_id ); // use this for actual data
 					}
 				}
 			}
-
-			return null;
 		}
 
 		/**

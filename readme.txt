@@ -46,7 +46,7 @@ More info: www.booxtream.com
 
 == Installation ==
 
-The installation of BooXtream for WooCommerce s required; this plugin has been tested with version 2.3.0 up to 2.4.13.
+The installation of BooXtream for WooCommerce s required; this plugin has been tested with version 2.3.0 up to 3.0.7.
 
 1. Upload the plugin files to the '/wp-content/plugins/plugin-name' directory, or install the plugin through the WordPress plugins screen directly.
 

@@ -403,6 +403,11 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 				'index.php?bx-download=1&bx-item-id=$matches[1]&bx-download-id=$matches[2]',
 				'top'
 			);
+			add_rewrite_rule(
+				'^bx/([0-9]+)b([A-Za-z0-9.]+)/?$',
+				'index.php?bx-download=1&bx-item-id=$matches[1]&bx-download-id=b$matches[2]',
+				'top'
+			);
 		}
 
 	}
@@ -431,6 +436,5 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		}
 
 	}
-
 
 endif;

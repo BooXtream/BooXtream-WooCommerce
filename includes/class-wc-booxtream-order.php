@@ -175,9 +175,14 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			}
 
 			// add link to item
+			$fulltext = false;
+			if(count($links) > 0) {
+				$fulltext = true;
+			}
 			foreach ( $links as $type => $link ) {
 				$downloadlink = $wp_rewrite->root . $link;
-				wc_add_order_item_meta( $item_id, __( 'download', 'woocommerce_booxtream' ), $downloadlink, false );
+				$linktext = 'download'.($fulltext ? ' '.$type : '');
+				wc_add_order_item_meta( $item_id, __( $linktext, 'woocommerce_booxtream' ), $downloadlink, false );
 			}
 
 		}

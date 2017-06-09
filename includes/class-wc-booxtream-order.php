@@ -11,6 +11,8 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 	 */
 	class WC_BooXtream_Order {
 
+		protected $processed=false;
+
 		/**
 		 * @param WC_BooXtream_Integration $settings
 		 */
@@ -21,8 +23,40 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			add_action( 'woocommerce_order_add_product', array( $this, 'add_order_item_meta' ), 1, 5 );
 
 			// runs when order status changes
-			add_action( 'woocommerce_order_status_changed', array( $this, 'handle_status_change' ), 1, 3 );
 
+			if($this->settings->onstatus === 'wc-processing') {
+				add_action( 'woocommerce_order_status_processing', array( $this, 'process_items' ));
+			}
+			elseif($this->settings->onstatus === 'wc-completed') {
+				add_action( 'woocommerce_order_status_completed', array( $this, 'process_items' ));
+			}
+
+			add_action( 'woocommerce_order_item_meta_start', array( $this, 'handle_item_meta_display'), 0, 4);
+		}
+
+		public function handle_item_meta_display($item_id, $item, $order, $plain_text) {
+			$links = array();
+			$epub = wc_get_order_item_meta( $item_id, '_bx_epub_full_link' );
+			$mobi = wc_get_order_item_meta( $item_id, '_bx_mobi_full_link' );
+
+			if(strlen($epub) > 0) {
+				$links['epub'] = $epub;
+			}
+			if(strlen($mobi) > 0) {
+				$links['mobi'] = $mobi;
+			}
+
+			if(count($links) > 0) {
+				echo '<p>';
+				foreach ( $links as $type => $link ) {
+
+					$downloadlink = $wp_rewrite->root . $link;
+					$linktext     = 'Download ' . $type;
+
+					echo '<a href="'.$downloadlink.'">'.$linktext.'</a><br />';
+				}
+				echo '</p>';
+			}
 		}
 
 		/**
@@ -60,10 +94,8 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 
 		/**
 		 * @param $order_id
-		 * @param $old_status
-		 * @param $new_status
 		 */
-		public function handle_status_change( $order_id, $old_status, $new_status ) {
+		public function handle_status_change( $order_id ) {
 			$statuses = wc_get_order_statuses();
 			// if we don't get a wc-prefixed status.
 			$status = 'wc-' === substr( $new_status, 0, 3 ) ? substr( $new_status, 3 ) : $new_status;
@@ -76,6 +108,8 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		 * @param $order_id
 		 */
 		public function process_items( $order_id ) {
+			if($this->processed) return;
+
 			$order = new WC_Order( $order_id );
 			$items = $order->get_items( array( 'line_item' ) );
 
@@ -90,11 +124,11 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 							'yes' === get_post_meta( $item['product_id'], '_bx_booxtreamable', true )
 						)
 					) {
-						$this->request_downloadlinks( $item['product_id'], $order_id,
-							$item_id ); // use this for actual data
+						$this->request_downloadlinks( $item['product_id'], $order_id, $item_id ); // use this for actual data
 					}
 				}
 			}
+			$this->processed = true;
 		}
 
 		/**
@@ -174,15 +208,8 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 				}
 			}
 
-			// add link to item
-			$fulltext = false;
-			if(count($links) > 0) {
-				$fulltext = true;
-			}
 			foreach ( $links as $type => $link ) {
-				$downloadlink = $wp_rewrite->root . $link;
-				$linktext = 'download'.($fulltext ? ' '.$type : '');
-				wc_add_order_item_meta( $item_id, __( $linktext, 'woocommerce_booxtream' ), $downloadlink, false );
+				wc_update_order_item_meta( $item_id, '_bx_' . $type . '_full_link', $link );
 			}
 
 		}

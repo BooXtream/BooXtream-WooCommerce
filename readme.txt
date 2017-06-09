@@ -3,8 +3,8 @@
 Contributors: booxtream
 Tags: booxtream, ebooks, watermarking, watermark, epub, mobi, kindle, ebook, woocommerce, socialdrm, social drm, drm
 Requires at least: 4.0
-Tested up to: 4.7.5
-Stable tag: 0.9.9.6
+Tested up to: 4.8
+Stable tag: 0.9.9.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Extends the Simple product features in order to sell watermarked 'Social DRM' eB
 
 == Description ==
 
-This plugin requires WooCommerce. This plugin has been tested with version 2.3.0 up to 3.0.7
+This plugin requires WooCommerce. This plugin has been tested with version 2.6.11 up to 3.0.8
 
 BooXtream is a cloudbased alternative to Adobe DRM to protect ePub eBooks. It is used to create watermarked and personalised eBooks, a protection method also known as Social DRM. BooXtream provides download links to uniquely personalised eBooks and fulfils the download when an end user clicks on a link. 
 
@@ -91,6 +91,11 @@ The actual error message shown in the BooXtream Dashboard is not shown to the en
 An ebook can fail to watermark when the ebook file is invalid. We therefore strongly recommend to test your ebooks by validating and watermarking every ebook before adding them to your web shop.
 To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
+
+= 0.9.9.7 =
+* fixed a bug where downloadlinks did not show in e-mails
+* fixed a bug where only one downloadlink was shown when both epub and mobi were selected
+* changed presentation of downloadlinks (no longer added as a string but added as clickable link)
 
 = 0.9.9.6 =
 * Some bugfixes

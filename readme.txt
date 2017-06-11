@@ -92,6 +92,9 @@ An ebook can fail to watermark when the ebook file is invalid. We therefore stro
 To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
 
+= 0.9.9.8 =
+* fixed a php warning
+
 = 0.9.9.7 =
 * fixed a bug where downloadlinks did not show in e-mails
 * fixed a bug where only one downloadlink was shown when both epub and mobi were selected

@@ -34,7 +34,9 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			add_action( 'woocommerce_order_item_meta_start', array( $this, 'handle_item_meta_display'), 0, 4);
 		}
 
-		public function handle_item_meta_display($item_id, $item, $order, $plain_text) {
+		public function handle_item_meta_display($item_id, $item, $order, $plain_text=false) {
+			global $wp_rewrite;
+
 			$links = array();
 			$epub = wc_get_order_item_meta( $item_id, '_bx_epub_full_link' );
 			$mobi = wc_get_order_item_meta( $item_id, '_bx_mobi_full_link' );

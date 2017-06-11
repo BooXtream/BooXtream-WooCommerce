@@ -4,7 +4,7 @@ Contributors: booxtream
 Tags: booxtream, ebooks, watermarking, watermark, epub, mobi, kindle, ebook, woocommerce, socialdrm, social drm, drm
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 0.9.9.7
+Stable tag: 0.9.9.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -93,6 +93,7 @@ To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have an
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
 
 = 0.9.9.8 =
+* Supports WooCommerce 3.0.8 and Wordpress 4.8
 * fixed a php warning
 
 = 0.9.9.7 =

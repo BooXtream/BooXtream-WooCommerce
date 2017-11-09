@@ -3,8 +3,8 @@
 Contributors: booxtream
 Tags: booxtream, ebooks, watermarking, watermark, epub, mobi, kindle, ebook, woocommerce, socialdrm, social drm, drm
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: 0.9.9.8
+Tested up to: 4.9
+Stable tag: 0.9.9.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ Extends the Simple product features in order to sell watermarked 'Social DRM' eB
 
 == Description ==
 
-This plugin requires WooCommerce. This plugin has been tested with version 2.6.11 up to 3.0.8
+This plugin requires WooCommerce. This plugin has been tested with version 2.6.11 up to 3.2.3
 
 BooXtream is a cloudbased alternative to Adobe DRM to protect ePub eBooks. It is used to create watermarked and personalised eBooks, a protection method also known as Social DRM. BooXtream provides download links to uniquely personalised eBooks and fulfils the download when an end user clicks on a link. 
 
@@ -45,8 +45,6 @@ Every eBook processed by BooXtream for WooCommerce contains invisible watermarks
 More info: www.booxtream.com
 
 == Installation ==
-
-The installation of BooXtream for WooCommerce s required; this plugin has been tested with version 2.3.0 up to 3.0.7.
 
 1. Upload the plugin files to the '/wp-content/plugins/plugin-name' directory, or install the plugin through the WordPress plugins screen directly.
 
@@ -87,10 +85,17 @@ The download link can redirect to the page 'Your download is not ready yet'. It 
 If this happens you should check the Transaction page on the BooXtream Dashboard for any watermarking errors and cancel/refund the WooCommerce order manually.
 The actual error message shown in the BooXtream Dashboard is not shown to the end user in WooCommerce or in the admin. We will improve this in a future release of the BooXtream plug-in.
 
+= Default menu shows 'Your download is not ready yet' =
+Please refer to https://en.support.wordpress.com/pages/hide-pages/
+
 = Why can an ebook fail to watermark? =
 An ebook can fail to watermark when the ebook file is invalid. We therefore strongly recommend to test your ebooks by validating and watermarking every ebook before adding them to your web shop.
 To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
+
+= 0.9.9.9 =
+* Supports WooCommerce 3.2.3 and Wordpress 4.9
+* Set processing default
 
 = 0.9.9.8 =
 * Supports WooCommerce 3.0.8 and Wordpress 4.8

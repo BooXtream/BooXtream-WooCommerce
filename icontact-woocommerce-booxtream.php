@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 	if (!defined('BOOXTREAM_PLUGIN_VERSION'))
-		define('BOOXTREAM_PLUGIN_VERSION', '0.9.9.8');
+		define('BOOXTREAM_PLUGIN_VERSION', '0.9.9.9');
 
 	class WC_BooXtream {
 		/**

@@ -23,12 +23,11 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			add_action( 'woocommerce_order_add_product', array( $this, 'add_order_item_meta' ), 1, 5 );
 
 			// runs when order status changes
-
-			if($this->settings->onstatus === 'wc-processing') {
-				add_action( 'woocommerce_order_status_processing', array( $this, 'process_items' ));
-			}
-			elseif($this->settings->onstatus === 'wc-completed') {
+			if($this->settings->onstatus === 'wc-completed') {
 				add_action( 'woocommerce_order_status_completed', array( $this, 'process_items' ));
+			} else {
+				// default to "Processing"
+				add_action( 'woocommerce_order_status_processing', array( $this, 'process_items' ));
 			}
 
 			add_action( 'woocommerce_order_item_meta_start', array( $this, 'handle_item_meta_display'), 0, 4);

@@ -40,12 +40,11 @@ if ( ! class_exists( 'WC_BooXtream_Request' ) ) :
 
 		}
 
-		public function handle_request( $url, $args, $parameters, $order_id, $item_id ) {
+		public function handle_request( $url, $args, $parameters, $order_id ) {
 			// multipart request
 			try {
 				$args  = $this->create_multipart_request( $parameters, $args );
-				$links = $this->do_request( $url, $args );
-				$this->add_downloadlinks( $links, $item_id );
+				$this->do_request( $url, $args );
 			} catch ( Exception $e ) {
 				$order = new WC_Order( $order_id );
 				$order->update_status( 'wc-booxtream-error', $e->getMessage() );

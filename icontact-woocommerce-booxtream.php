@@ -312,23 +312,15 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 				session_write_close();
 
+				/* @todo define/handle callback
 				$vars = $_POST['request'];
-
 				$vars = stripslashes( $vars );
 				$vars = json_decode( $vars, true );
 
 				if ( ! is_null( $vars ) ) {
-					// get the vars we need
-					$order_id   = $vars['order_id'];
-					$item_id    = $vars['item_id'];
-					$url        = $vars['url'];
-					$args       = $vars['args'];
-					$parameters = $vars['parameters'];
-
-					// do the actual request
-					$request = new WC_BooXtream_Request();
-					$request->handle_request( $url, $args, $parameters, $order_id, $item_id );
+					$this->add_downloadlinks( $links, $item_id );
 				}
+				 */
 			} else {
 				// say hi back as soon as possible!
 				ignore_user_abort( true );

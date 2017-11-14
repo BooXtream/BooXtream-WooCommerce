@@ -11,7 +11,7 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 	 */
 	class WC_BooXtream_Order {
 
-		protected $processed=false;
+		protected $processed = false;
 
 		/**
 		 * @param WC_BooXtream_Integration $settings
@@ -23,38 +23,38 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 			add_action( 'woocommerce_order_add_product', array( $this, 'add_order_item_meta' ), 1, 5 );
 
 			// runs when order status changes
-			if($this->settings->onstatus === 'wc-completed') {
-				add_action( 'woocommerce_order_status_completed', array( $this, 'process_items' ));
+			if ( $this->settings->onstatus === 'wc-completed' ) {
+				add_action( 'woocommerce_order_status_completed', array( $this, 'process_items' ) );
 			} else {
 				// default to "Processing"
-				add_action( 'woocommerce_order_status_processing', array( $this, 'process_items' ));
+				add_action( 'woocommerce_order_status_processing', array( $this, 'process_items' ) );
 			}
 
-			add_action( 'woocommerce_order_item_meta_start', array( $this, 'handle_item_meta_display'), 0, 4);
+			add_action( 'woocommerce_order_item_meta_start', array( $this, 'handle_item_meta_display' ), 0, 4 );
 		}
 
-		public function handle_item_meta_display($item_id, $item, $order, $plain_text=false) {
+		public function handle_item_meta_display( $item_id, $item, $order, $plain_text = false ) {
 			global $wp_rewrite;
 
 			$links = array();
-			$epub = wc_get_order_item_meta( $item_id, '_bx_epub_full_link' );
-			$mobi = wc_get_order_item_meta( $item_id, '_bx_mobi_full_link' );
+			$epub  = wc_get_order_item_meta( $item_id, '_bx_epub_full_link' );
+			$mobi  = wc_get_order_item_meta( $item_id, '_bx_mobi_full_link' );
 
-			if(strlen($epub) > 0) {
+			if ( strlen( $epub ) > 0 ) {
 				$links['epub'] = $epub;
 			}
-			if(strlen($mobi) > 0) {
+			if ( strlen( $mobi ) > 0 ) {
 				$links['mobi'] = $mobi;
 			}
 
-			if(count($links) > 0) {
+			if ( count( $links ) > 0 ) {
 				echo '<p>';
 				foreach ( $links as $type => $link ) {
 
 					$downloadlink = $wp_rewrite->root . $link;
 					$linktext     = 'Download ' . $type;
 
-					echo '<a href="'.$downloadlink.'">'.$linktext.'</a><br />';
+					echo '<a href="' . $downloadlink . '">' . $linktext . '</a><br />';
 				}
 				echo '</p>';
 			}
@@ -109,7 +109,9 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		 * @param $order_id
 		 */
 		public function process_items( $order_id ) {
-			if($this->processed) return;
+			if ( $this->processed ) {
+				return;
+			}
 
 			$order = new WC_Order( $order_id );
 			$items = $order->get_items( array( 'line_item' ) );
@@ -125,7 +127,8 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 							'yes' === get_post_meta( $item['product_id'], '_bx_booxtreamable', true )
 						)
 					) {
-						$this->request_downloadlinks( $item['product_id'], $order_id, $item_id ); // use this for actual data
+						$this->request_downloadlinks( $item['product_id'], $order_id,
+							$item_id ); // use this for actual data
 					}
 				}
 			}
@@ -239,14 +242,28 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		private function request_downloadlinks( $product_id, $order_id, $item_id ) {
 			global $wp_rewrite;
 
-			// do request
+			// assemble requestdata
 			$requestdata = $this->get_product_request_data( $product_id, $order_id );
 
-			$exlibris = false;
-			if ( '' != $requestdata['_bx_exlibrisfile'] ) {
-				$exlibris = true;
-			}
+			// create the links that refer to this website
+			$epub = 'yes' === $requestdata['_bx_outputepub'] ? true : false;
+			$mobi = 'yes' === $requestdata['_bx_outputmobi'] ? true : false;
+			$this->create_internal_links( $item_id, $epub, $mobi );
 
+			// get what we need for the request
+			$url = WC_BooXtream::storedfilesurl . $requestdata['_bx_filename'] . '.async';
+
+			$accountkey = $this->settings->accountkey;
+			$loginname  = $this->settings->accounts[ $accountkey ] ['loginname'];
+			$args       = array(
+				'method'      => 'POST',
+				'redirection' => 3,
+				'user-agent'  => 'booxtreamrequest',
+				'httpversion' => '1.1',
+				'headers'     => array(
+					'Authorization' => 'Basic ' . base64_encode( $loginname . ':' . $accountkey )
+				)
+			);
 			$parameters = array(
 				'referenceid'          => $this->settings->referenceprefix . $order_id,
 				'languagecode'         => $requestdata['_bx_language'],
@@ -255,56 +272,24 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 				'customeremailaddress' => $requestdata['_bx_customeremailaddress'],
 				'customername'         => $requestdata['_bx_customername'],
 				'disclaimer'           => 'yes' === $requestdata['_bx_disclaimer'] ? 1 : 0,
-				'exlibris'             => 'yes' === $exlibris ? 1 : 0,
+				'exlibris'             => 0,
 				'chapterfooter'        => 'yes' === $requestdata['_bx_chapterfooter'] ? 1 : 0,
 				'showdate'             => 'yes' === $requestdata['_bx_showdate'] ? 1 : 0,
 				'epub'                 => 'yes' === $requestdata['_bx_outputepub'] ? 1 : 0,
 				'kf8mobi'              => 'yes' === $requestdata['_bx_outputmobi'] ? 1 : 0,
 				'exlibrisfont'         => $requestdata['_bx_exlibrisfont'],
 			);
-			if ( $exlibris ) {
+			if ( '' != $requestdata['_bx_exlibrisfile'] ) {
+				$parameters['exlibris']     = 1;
 				$parameters['exlibrisfile'] = $requestdata['_bx_exlibrisfile'];
 			}
+			// create callback url
+			$callback = site_url( $wp_rewrite->root . 'wc-api/booxtream_callback?order_id=' . $order_id .'&item_id=' .$item_id );
+			$parameters['callbackurl'] = $callback;
 
-			$epub = 'yes' === $requestdata['_bx_outputepub'] ? true : false;
-			$mobi = 'yes' === $requestdata['_bx_outputmobi'] ? true : false;
-
-			$this->create_internal_links( $item_id, $epub, $mobi );
-
-			$url = WC_BooXtream::storedfilesurl . $requestdata['_bx_filename'] . '.xml';
-
-			$args = array();
-
-			// Set authentication
-			$accountkey                        = $this->settings->accountkey;
-			$loginname                         = $this->settings->accounts[ $accountkey ] ['loginname'];
-			$args['headers'] ['Authorization'] = 'Basic ' . base64_encode( $loginname . ':' . $accountkey );
-			// add timeout
-			$args['timeout'] = 600;
-
-			// send non-blocking request to API
-			$request  = array(
-				'url'        => $url,
-				'args'       => $args,
-				'parameters' => $parameters,
-				'order_id'   => $order_id,
-				'item_id'    => $item_id
-			);
-			$args     = array(
-				'method'      => 'POST',
-				'redirection' => 3,
-				'user-agent'  => 'booxtreamrequest',
-				'httpversion' => '1.1',
-				'blocking'    => false,
-				'timeout'     => 1, // setting blocking to false and timeout to 1 should just fire the request
-				'body'        => array( 'request' => json_encode( $request ) )
-			);
-			$response = wp_remote_post( site_url( $wp_rewrite->root . 'wc-api/booxtream_callback' ), $args );
-			if ( is_wp_error( $response ) ) {
-				/*
-				 * @todo: handle this, show message to admin?
-				 */
-			}
+			// do the actual request
+			$request = new WC_BooXtream_Request();
+			$request->handle_request( $url, $args, $parameters, $order_id );
 
 			return;
 		}

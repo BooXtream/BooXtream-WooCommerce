@@ -144,6 +144,7 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 		private function get_product_request_data( $product_id, $order_id ) {
 			$data = array();
 
+
 			$data['_bx_filename']      = get_post_meta( $product_id, '_bx_filename', true );
 			$data['_bx_language']      = get_post_meta( $product_id, '_bx_language', true );
 			$data['_bx_outputepub']    = get_post_meta( $product_id, '_bx_outputepub', true );
@@ -284,7 +285,10 @@ if ( ! class_exists( 'WC_BooXtream_Order' ) ) :
 				$parameters['exlibrisfile'] = $requestdata['_bx_exlibrisfile'];
 			}
 			// create callback url
-			$callback = site_url( $wp_rewrite->root . 'wc-api/booxtream_callback?order_id=' . $order_id .'&item_id=' .$item_id );
+			$nonce = bin2hex(random_bytes(64));
+			wc_update_order_item_meta( $item_id, '_bx_nonce', $nonce );
+
+			$callback = site_url( $wp_rewrite->root . 'wc-api/booxtream_callback?order_id=' . $order_id .'&item_id=' . $item_id . '&_bx_nonce=' . $nonce);
 			$parameters['callbackurl'] = $callback;
 
 			// do the actual request

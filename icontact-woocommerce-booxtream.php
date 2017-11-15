@@ -298,43 +298,56 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		}
 
 		public function callback_handler() {
-			if ( ! empty( $_POST['request'] ) ) {
-				// say hi back as soon as possible!
-				ignore_user_abort( true );
-				set_time_limit( 0 );
-				header( "HTTP/1.1 200 OK" );
-				header( "Connection: close", true );
-				header( "Content-Encoding: none\r\n" );
-				header( "Content-Length: 1", true );
-				echo '1';
-				ob_end_flush();
-				flush();
+			$postdata = file_get_contents( "php://input" );
+			$postdata = json_decode( $postdata, true );
 
-				session_write_close();
+			if(isset($_GET['item_id']) && isset($_GET['_bx_nonce'])) {
+				$nonce = $_GET['_bx_nonce'];
+				$item_id = (int) $_GET['item_id'];
 
-				/* @todo define/handle callback
-				$vars = $_POST['request'];
-				$vars = stripslashes( $vars );
-				$vars = json_decode( $vars, true );
+				$bxnonce = wc_get_order_item_meta( $item_id, '_bx_nonce' );
 
-				if ( ! is_null( $vars ) ) {
-					$this->add_downloadlinks( $links, $item_id );
+				// invalidate nonce
+				$newnonce = bin2hex(random_bytes(64));
+				wc_update_order_item_meta( $item_id, '_bx_nonce', $newnonce );
+
+				if($bxnonce == $nonce) {
+					// invalidate nonce
+					$nonce = bin2hex(random_bytes(64));
+					wc_update_order_item_meta( $item_id, '_bx_nonce', $nonce );
+
+					if ( is_array( $postdata ) ) {
+						wc_update_order_item_meta( $item_id, '_bx_downloadlinks', $postdata );
+
+						// say hi back as soon as possible!
+						ignore_user_abort( true );
+						set_time_limit( 0 );
+						header( "HTTP/1.1 200 OK" );
+						header( "Connection: close", true );
+						header( "Content-Encoding: none\r\n" );
+						header( "Content-Length: 2", true );
+						echo 'ok';
+						ob_end_flush();
+						flush();
+
+						session_write_close();
+						return;
+					}
 				}
-				 */
-			} else {
-				// say hi back as soon as possible!
-				ignore_user_abort( true );
-				set_time_limit( 0 );
-				header( "HTTP/1.1 400 Bad Request" );
-				header( "Connection: close", true );
-				header( "Content-Encoding: none\r\n" );
-				header( "Content-Length: 1", true );
-				echo '0';
-				ob_end_flush();
-				flush();
-
-				session_write_close();
 			}
+			// say hi back as soon as possible!
+			ignore_user_abort( true );
+			set_time_limit( 0 );
+			header( "HTTP/1.1 400 Bad Request" );
+			header( "Connection: close", true );
+			header( "Content-Encoding: none\r\n" );
+			header( "Content-Length: 2", true );
+			echo 'no';
+			ob_end_flush();
+			flush();
+
+			session_write_close();
+			return;
 		}
 
 		public function handle_download( $query ) {

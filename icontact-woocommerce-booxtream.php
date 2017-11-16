@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 	if (!defined('BOOXTREAM_PLUGIN_VERSION'))
-		define('BOOXTREAM_PLUGIN_VERSION', '0.9.9.9');
+		define('BOOXTREAM_PLUGIN_VERSION', '1.0.0.0');
 
 	class WC_BooXtream {
 		/**
@@ -255,6 +255,7 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 			// add custom order status
 			add_action( 'init', array( $this, 'add_custom_order_status' ) );
 			add_filter( 'wc_order_statuses', array( $this, 'add_custom_order_status_to_list' ) );
+			add_filter('woocommerce_hidden_order_itemmeta', array( $this, 'woocommerce_hidden_order_itemmeta'), 10, 1);
 
 			// load textdomain
 			load_plugin_textdomain( 'woocommerce_booxtream', false, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -423,6 +424,29 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 				self::activate_plugin();
 				update_option('booxtream_plugin_version', BOOXTREAM_PLUGIN_VERSION);
 			}
+		}
+
+		public function woocommerce_hidden_order_itemmeta($arr) {
+			$arr[] = '_bx_filename';
+			$arr[] = '_bx_language';
+			$arr[] = '_bx_outputepub';
+			$arr[] = '_bx_outputmobi';
+			$arr[] = '_bx_downloadlimit';
+			$arr[] = '_bx_expirydays';
+			$arr[] = '_bx_referenceid';
+			$arr[] = '_bx_exlibrisfile';
+			$arr[] = '_bx_exlibrisfont';
+			$arr[] = '_bx_chapterfooter';
+			$arr[] = '_bx_disclaimer';
+			$arr[] = '_bx_showdate';
+			$arr[] = '_bx_customername';
+			$arr[] = '_bx_customeremailaddress';
+			$arr[] = '_bx_epub_link';
+			$arr[] = '_bx_mobi_link';
+			$arr[] = '_bx_epub_full_link';
+			$arr[] = '_bx_mobi_full_link';
+			$arr[] = '_bx_nonce';
+			return $arr;
 		}
 
 	}

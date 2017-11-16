@@ -55,10 +55,10 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		public function add_custom_order_status() {
 			register_post_status( 'wc-booxtream-error', array(
 				'label'                     => __( 'BooXtream error', 'woocommerce_booxtream' ),
-				'public'                    => false,
+				'public'                    => true,
 				'exclude_from_search'       => false,
-				'show_in_admin_all_list'    => false,
-				'show_in_admin_status_list' => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
 				'label_count'               => _n_noop( 'BooXtream error <span class="count">(%s)</span>',
 					'BooXtream error <span class="count">(%s)</span>' )
 			) );

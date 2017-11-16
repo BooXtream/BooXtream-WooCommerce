@@ -93,6 +93,10 @@ An ebook can fail to watermark when the ebook file is invalid. We therefore stro
 To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
 
+= 1.0.0.0 =
+* Performance improvements
+* Plugin contacts BooXtream asynchronously
+
 = 0.9.9.9 =
 * Supports WooCommerce 3.2.3 and Wordpress 4.9
 * Set processing default

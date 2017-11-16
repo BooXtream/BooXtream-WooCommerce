@@ -59,6 +59,7 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
                 '1051'  => __( 'Slovak', 'woocommerce_booxtream' ),
                 '1034'  => __( 'Spanish', 'woocommerce_booxtream' ),
                 '1053'  => __( 'Swedish', 'woocommerce_booxtream' ),
+                '1060'  => __( 'Slovenian', 'woocommerce_booxtream')
             );
 
             // Load customer settings from database

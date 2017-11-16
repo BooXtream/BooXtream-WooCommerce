@@ -4,7 +4,7 @@
 Plugin Name: BooXtream Social DRM for WooCommerce
 Plugin URI: http://www.booxtream.com/woocommerce
 Description: Enables the use of BooXtream Social DRM with WooCommerce
-Version: 0.9.9.8
+Version: 1.0.0.0
 Author: Icontact B.V.
 Author URI: http://www.icontact.nl/
 License: GPLv2 or later
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 	if (!defined('BOOXTREAM_PLUGIN_VERSION'))
-		define('BOOXTREAM_PLUGIN_VERSION', '0.9.9.9');
+		define('BOOXTREAM_PLUGIN_VERSION', '1.0.0.0');
 
 	class WC_BooXtream {
 		/**
@@ -55,10 +55,10 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		public function add_custom_order_status() {
 			register_post_status( 'wc-booxtream-error', array(
 				'label'                     => __( 'BooXtream error', 'woocommerce_booxtream' ),
-				'public'                    => false,
+				'public'                    => true,
 				'exclude_from_search'       => false,
-				'show_in_admin_all_list'    => false,
-				'show_in_admin_status_list' => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
 				'label_count'               => _n_noop( 'BooXtream error <span class="count">(%s)</span>',
 					'BooXtream error <span class="count">(%s)</span>' )
 			) );
@@ -255,6 +255,7 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 			// add custom order status
 			add_action( 'init', array( $this, 'add_custom_order_status' ) );
 			add_filter( 'wc_order_statuses', array( $this, 'add_custom_order_status_to_list' ) );
+			add_filter('woocommerce_hidden_order_itemmeta', array( $this, 'woocommerce_hidden_order_itemmeta'), 10, 1);
 
 			// load textdomain
 			load_plugin_textdomain( 'woocommerce_booxtream', false, basename( dirname( __FILE__ ) ) . '/languages/' );
@@ -298,51 +299,56 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 		}
 
 		public function callback_handler() {
-			if ( ! empty( $_POST['request'] ) ) {
-				// say hi back as soon as possible!
-				ignore_user_abort( true );
-				set_time_limit( 0 );
-				header( "HTTP/1.1 200 OK" );
-				header( "Connection: close", true );
-				header( "Content-Encoding: none\r\n" );
-				header( "Content-Length: 1", true );
-				echo '1';
-				ob_end_flush();
-				flush();
+			$postdata = file_get_contents( "php://input" );
+			$postdata = json_decode( $postdata, true );
 
-				session_write_close();
+			if(isset($_GET['item_id']) && isset($_GET['_bx_nonce'])) {
+				$nonce = $_GET['_bx_nonce'];
+				$item_id = (int) $_GET['item_id'];
 
-				$vars = $_POST['request'];
+				$bxnonce = wc_get_order_item_meta( $item_id, '_bx_nonce' );
 
-				$vars = stripslashes( $vars );
-				$vars = json_decode( $vars, true );
+				// invalidate nonce
+				$newnonce = bin2hex(random_bytes(64));
+				wc_update_order_item_meta( $item_id, '_bx_nonce', $newnonce );
 
-				if ( ! is_null( $vars ) ) {
-					// get the vars we need
-					$order_id   = $vars['order_id'];
-					$item_id    = $vars['item_id'];
-					$url        = $vars['url'];
-					$args       = $vars['args'];
-					$parameters = $vars['parameters'];
+				if($bxnonce == $nonce) {
+					// invalidate nonce
+					$nonce = bin2hex(random_bytes(64));
+					wc_update_order_item_meta( $item_id, '_bx_nonce', $nonce );
 
-					// do the actual request
-					$request = new WC_BooXtream_Request();
-					$request->handle_request( $url, $args, $parameters, $order_id, $item_id );
+					if ( is_array( $postdata ) ) {
+						wc_update_order_item_meta( $item_id, '_bx_downloadlinks', $postdata );
+
+						// say hi back as soon as possible!
+						ignore_user_abort( true );
+						set_time_limit( 0 );
+						header( "HTTP/1.1 200 OK" );
+						header( "Connection: close", true );
+						header( "Content-Encoding: none\r\n" );
+						header( "Content-Length: 2", true );
+						echo 'ok';
+						ob_end_flush();
+						flush();
+
+						session_write_close();
+						return;
+					}
 				}
-			} else {
-				// say hi back as soon as possible!
-				ignore_user_abort( true );
-				set_time_limit( 0 );
-				header( "HTTP/1.1 400 Bad Request" );
-				header( "Connection: close", true );
-				header( "Content-Encoding: none\r\n" );
-				header( "Content-Length: 1", true );
-				echo '0';
-				ob_end_flush();
-				flush();
-
-				session_write_close();
 			}
+			// say hi back as soon as possible!
+			ignore_user_abort( true );
+			set_time_limit( 0 );
+			header( "HTTP/1.1 400 Bad Request" );
+			header( "Connection: close", true );
+			header( "Content-Encoding: none\r\n" );
+			header( "Content-Length: 2", true );
+			echo 'no';
+			ob_end_flush();
+			flush();
+
+			session_write_close();
+			return;
 		}
 
 		public function handle_download( $query ) {
@@ -418,6 +424,29 @@ if ( ! class_exists( 'WC_BooXtream' ) ) :
 				self::activate_plugin();
 				update_option('booxtream_plugin_version', BOOXTREAM_PLUGIN_VERSION);
 			}
+		}
+
+		public function woocommerce_hidden_order_itemmeta($arr) {
+			$arr[] = '_bx_filename';
+			$arr[] = '_bx_language';
+			$arr[] = '_bx_outputepub';
+			$arr[] = '_bx_outputmobi';
+			$arr[] = '_bx_downloadlimit';
+			$arr[] = '_bx_expirydays';
+			$arr[] = '_bx_referenceid';
+			$arr[] = '_bx_exlibrisfile';
+			$arr[] = '_bx_exlibrisfont';
+			$arr[] = '_bx_chapterfooter';
+			$arr[] = '_bx_disclaimer';
+			$arr[] = '_bx_showdate';
+			$arr[] = '_bx_customername';
+			$arr[] = '_bx_customeremailaddress';
+			$arr[] = '_bx_epub_link';
+			$arr[] = '_bx_mobi_link';
+			$arr[] = '_bx_epub_full_link';
+			$arr[] = '_bx_mobi_full_link';
+			$arr[] = '_bx_nonce';
+			return $arr;
 		}
 
 	}

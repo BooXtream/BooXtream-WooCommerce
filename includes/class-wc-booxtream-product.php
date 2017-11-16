@@ -617,7 +617,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 			);
 
 			$response = wp_safe_remote_head( $url, $args );
-			if ( $response['response'] ['code'] !== 200 ) {
+			if ( is_wp_error( $response ) || $response['response'] ['code'] !== 200 ) {
 				return false;
 			}
 

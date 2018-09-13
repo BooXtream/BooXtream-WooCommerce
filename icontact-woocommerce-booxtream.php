@@ -4,7 +4,7 @@
 Plugin Name: BooXtream Social DRM for WooCommerce
 Plugin URI: http://www.booxtream.com/woocommerce
 Description: Enables the use of BooXtream Social DRM with WooCommerce
-Version: 1.0.0.0
+Version: 1.1.0
 Author: Icontact B.V.
 Author URI: http://www.icontact.nl/
 License: GPLv2 or later
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'WC_BooXtream' ) ) :
 
 	if (!defined('BOOXTREAM_PLUGIN_VERSION'))
-		define('BOOXTREAM_PLUGIN_VERSION', '1.0.0.0');
+		define('BOOXTREAM_PLUGIN_VERSION', '1.1.0');
 
 	class WC_BooXtream {
 		/**

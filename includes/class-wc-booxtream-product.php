@@ -268,7 +268,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'custom_attributes' => array(
 						'step' => 'any',
 						'min'  => '1',
-						'max'  => '99',
+						'max'  => '255',
 					)
 				)
 			);
@@ -287,7 +287,7 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					'custom_attributes' => array(
 						'step' => 'any',
 						'min'  => '1',
-						'max'  => '99',
+						'max'  => '730',
 					)
 				)
 			);
@@ -547,6 +547,16 @@ if ( ! class_exists( 'WC_BooXtream_Product' ) ) :
 					$bx_expirydays = ( int ) $this->settings->expirydays;;
 				}
 
+				// Check limits
+				if ( 255 == (int) $bx_downloadlimit ) {
+					$error = true;
+					WC_Admin_Meta_Boxes::add_error( __( 'Download limit should be max 255.', 'woocommerce_booxtream' ) );
+				}
+
+				if ( 730 == (int) $bx_expirydays ) {
+					$error = true;
+					WC_Admin_Meta_Boxes::add_error(__('Days until download expires should be max 730.', 'woocommerce_booxtream'));
+				}
 
 				// Some required parameters should be always set or are set elsewhere (referenceid, languagecode, etc). We don't care about optional parameters at this point
 				if ( '' == $bx_filename ) {

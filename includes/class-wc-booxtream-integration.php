@@ -256,7 +256,7 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
                         'custom_attributes' => array(
                             'step' => 'any',
                             'min' => '1',
-                            'max' => '99',
+                            'max' => '255',
                         ),
                     );
 
@@ -268,7 +268,7 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
                         'custom_attributes' => array(
                             'step' => 'any',
                             'min' => '1',
-                            'max' => '99',
+                            'max' => '730',
                         ),
                     );
                 }
@@ -337,7 +337,16 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
 		        // try to retrieve and save accounts
 		        $this->get_accounts();
 
-		        $this->init_form_fields();
+                // check downloadlimit, expirydays
+                if ((int)$this->downloadlimit > 255) {
+                    $this->show_notice( 'woocommerce_settings_saved', 'error', 'Download limit should be max 255.' );
+                }
+
+                if ((int)$this->expirydays > 730) {
+                    $this->show_notice( 'woocommerce_settings_saved', 'error', 'Days until download expires should be max 730.' );
+                }
+
+                $this->init_form_fields();
 
 		        return true;
             }
@@ -502,8 +511,8 @@ if ( ! class_exists( 'WC_BooXtream_Integration' ) ) :
          * @param  mixed $key
          * @param  mixed $data
          *
-*@since  1.0.0
-         * @return string
+*@return string
+         *@since  1.0.0
          */
         public function generate_message_html( $key, $data ) {
 

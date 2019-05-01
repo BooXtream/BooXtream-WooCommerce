@@ -1,4 +1,4 @@
-#This repository is no longer maintained.
+# This repository is no longer maintained
 Issue reports and pull requests will not be attended. 
 
 #### BooXtream Social DRM for WooCommerce

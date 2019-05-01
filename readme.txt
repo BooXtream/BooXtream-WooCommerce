@@ -4,11 +4,14 @@ Contributors: booxtream
 Tags: booxtream, ebooks, watermarking, watermark, epub, mobi, kindle, ebook, woocommerce, socialdrm, social drm, drm
 Requires at least: 4.0
 Tested up to: 4.9
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Extends the Simple product features in order to sell watermarked 'Social DRM' eBooks with WooCommerce. A BooXtream contract is required.
+
+== No longer maintained ==
+This plugin is NOT supported and maintained by BooXtream. Use and modify as you like.
 
 == Description ==
 
@@ -92,6 +95,10 @@ Please refer to https://en.support.wordpress.com/pages/hide-pages/
 An ebook can fail to watermark when the ebook file is invalid. We therefore strongly recommend to test your ebooks by validating and watermarking every ebook before adding them to your web shop.
 To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
+
+= 1.1.1 =
+* No longer maintained message added
+* Fixed small issue with download limits and expiry date
 
 = 1.1.0 =
 * Moved to SemVer

@@ -8,7 +8,7 @@ Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Extends the Simple product features in order to sell watermarked 'Social DRM' eBooks with WooCommerce. A BooXtream contract is required.
+Extends the Simple product features in order to sell personalised and watermarked (aka 'Social DRM') EPUB ebooks with WooCommerce. A BooXtream contract is required.
 
 == No longer maintained ==
 This plugin is NOT supported and maintained by BooXtream. Use and modify as you like.
@@ -17,12 +17,12 @@ This plugin is NOT supported and maintained by BooXtream. Use and modify as you 
 
 This plugin requires WooCommerce. This plugin has been tested with version 2.6.11 up to 3.2.3
 
-BooXtream is a cloudbased alternative to Adobe DRM to protect ePub eBooks. It is used to create watermarked and personalised eBooks, a protection method also known as Social DRM. BooXtream provides download links to uniquely personalised eBooks and fulfils the download when an end user clicks on a link. 
+BooXtream is a cloudbased alternative to Adobe DRM to protect EPUB ebooks. It is used to create watermarked and personalised ebooks, a protection method also known as Social DRM. BooXtream provides download links to uniquely personalised ebooks and fulfils the download when an end user clicks on a link. 
 
-To use the plug-in you'll need a BooXtream Contract and access to the BooXtream Dashboard. The Dashboard offers insight in all eBook transactions, account usage and eBook master file management.
+To use the plug-in you'll need a BooXtream Contract and access to the BooXtream Dashboard. The Dashboard offers insight in all ebook transactions, account usage and ebook master file management.
 
-The plug-in extends the Simple product features with a 'BooXtreamable' selection box in order to sell watermarked eBooks with WooCommerce. 
-Please note: BooXtream for WooCommerce works independent from Virtual products. Master eBook files are managed from the BooXtream Dashboard, not from WordPress or WooCommerce.
+The plug-in extends the Simple product features with a 'BooXtreamable' selection box in order to sell watermarked ebooks with WooCommerce. 
+Please note: BooXtream for WooCommerce works independent from Virtual products. Master ebook files are managed from the BooXtream Dashboard, not from WordPress or WooCommerce.
 
 Extensive plug-in documentation can be found on the Support page of the BooXtream Dashboard.
 
@@ -33,17 +33,17 @@ More information about the status of your contract and credits can be found in y
 
 BooXtream Basics: 
 
-BooXtream uses 3 data fields with information about the end users to watermark and personalise the eBooks:
+BooXtream uses 3 data fields with information about the end users to watermark and personalise the ebooks:
 
-* Customer Name (used to personalise the eBook, see below)
-* Customer Email Address (used to personalise the eBook, see below)
+* Customer Name (used to personalise the ebook, see below)
+* Customer Email Address (used to personalise the ebook, see below)
 * WooCommerce Order ID (used for reports and transaction logging)
 
-Every eBook processed by BooXtream for WooCommerce contains invisible watermarks. Optionally, the eBooks also contain a combination of visible extra's based on 'Customer Name' and 'Customer Email Address':
+Every ebook processed by BooXtream for WooCommerce contains invisible watermarks. Optionally, the ebooks also contain a combination of visible extra's based on 'Customer Name' and 'Customer Email Address':
 
 * a personalised ex libris image on the bookplate (the page after the cover page)
 * a footer text at the end of every chapter
-* a personalised page (disclaimer page) at the end of the eBook.
+* a personalised page (disclaimer page) at the end of the ebook.
 
 More info: www.booxtream.com
 
@@ -69,11 +69,11 @@ More info: www.booxtream.com
 
 		- Ex Libris: drop down selection with all available Ex Libris image files in your BooXTream Dashboard account; use the BooXtream Dashboard 'Stored Files' section to upload and manage your Ex Libris image files
 
-		- Language: drop down selection for the language used for all visible eBook personalisation texts (like Chapter Footer text and Disclaimer Page text)
+		- Language: drop down selection for the language used for all visible ebook personalisation texts (like Chapter Footer text and Disclaimer Page text)
 
-		- Download limit: enter a value from 1 to 9999 (times); this value represents how many times a download link can be activated before it expires
+		- Download limit: enter a value from 1 to 255 (times); this value represents how many times a download link can be activated before it expires
 
-		- Days until download expires: Enter a value between 1 and 999 (days). This value represents the lifetime of a download link in days before it expires
+		- Days until download expires: Enter a value between 1 and 730 (days). This value represents the lifetime of a download link in days before it expires
 
 When you click Save changes, the installation and configuration process is finished and BooXtream for WooCommerce is ready for use!
 
@@ -93,7 +93,7 @@ Please refer to https://en.support.wordpress.com/pages/hide-pages/
 
 = Why can an ebook fail to watermark? =
 An ebook can fail to watermark when the ebook file is invalid. We therefore strongly recommend to test your ebooks by validating and watermarking every ebook before adding them to your web shop.
-To validate an ebook go to validate.idpf.org. A proper ebook shouldn’t have any warnings or errors.
+To validate an ebook go to the Stored Files tab in the BooXtream Dashboard and use the ? button. A proper ebook shouldn’t have any warnings or errors.
 To test the watermarking of an ebook you can use the Manual Mode and your free BooXtream test account. The watermarking process is ok when a download link is created.
 
 = 1.1.1 =
